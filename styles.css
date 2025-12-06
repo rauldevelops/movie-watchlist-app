@@ -53,6 +53,37 @@ header {
     margin-bottom: 0;
 }
 
+.movie-card {
+    gap: 1.25em;
+    border-bottom: 1px solid #2C2C2C;
+    padding: 2.5em 0;
+}
+
+.movie-card:nth-of-type(10) {
+    border: none;
+}
+
+
+.movie-poster {
+    width: 150px;
+    object-fit: cover;
+}
+
+.movie-info {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title-rating {
+    align-items: center;
+    gap: .5em;
+}
+
+.runtime-genre-watchlist-btn {
+    align-items: center;
+    gap: 1.25em;
+}
+
 /* Navigation */
 
 nav {
@@ -131,6 +162,22 @@ ul li a {
 }
 
 /* Buttons */
+
+.watchlist-btn {
+    position: relative;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: .5em 2.5em;
+    cursor: pointer;
+}
+
+.plus-icon {
+    position: absolute;
+    font-size: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 /* Media Queries */
 
