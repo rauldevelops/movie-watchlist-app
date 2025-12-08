@@ -67,6 +67,9 @@ document.addEventListener('click', (e) => {
             watchlist = watchlist.filter(id => id !== movieID)
             localStorage.setItem('watchlist', JSON.stringify(watchlist))
             e.target.closest('.movie-card').remove()
+            if (watchlist.length === 0 && window.location.pathname.endsWith('watchlist.html')) {
+                renderPlaceholderHtml()
+            }
             return
         } else {
             if (!watchlist.includes(movieID)) {
@@ -83,12 +86,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', (e) => {
     if (window.location.pathname.endsWith('watchlist.html')) {
         if (watchlist.length === 0) {
-            document.getElementById('watchlist-section').innerHTML = `
-                <div class="search-placeholder-container flex">
-                    <p class="search-placeholder-text">Your watchlist is looking a little empty...</p>
-                    <a class="search-link" href="index.html"><i class="plus-icon fa-solid fa-circle-plus" style="color: #ffffff;"></i> Let's add some movies!</a>
-                </div>
-                `
+            renderPlaceholderHtml()
         } else {
             watchlist.forEach( async (movieID) => {
                 const movie = await getMovieDetails({ imdbID: movieID })
@@ -98,3 +96,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     }
 })
+
+function renderPlaceholderHtml() {
+    document.getElementById('watchlist-section').innerHTML = `
+        <div class="search-placeholder-container flex">
+            <p class="search-placeholder-text">Your watchlist is looking a little empty...</p>
+            <a class="search-link" href="index.html"><i class="plus-icon fa-solid fa-circle-plus" style="color: #ffffff;"></i> Let's add some movies!</a>
+        </div>
+    `
+}
