@@ -172,7 +172,8 @@ a {
 
 /* Buttons */
 
-.watchlist-btn {
+.watchlist-btn,
+.remove-btn {
     position: relative;
     background: none;
     border: none;
@@ -181,7 +182,7 @@ a {
     cursor: pointer;
 }
 
-.plus-icon {
+.icon {
     position: absolute;
     font-size: 1rem;
     top: 50%;
