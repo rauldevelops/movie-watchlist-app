@@ -1,8 +1,9 @@
 const searchForm = document.getElementById('search-form')
 
-searchForm.addEventListener('submit', async (e) => {
+document.addEventListener('submit', async (e) => {
+    if (e.target.id === 'search-form') {
     e.preventDefault()
-    const searchFormData = new FormData(searchForm)
+    const searchFormData = new FormData(e.target)
     const searchFormDataObj = Object.fromEntries(searchFormData.entries())
     let resultsHtml = ``
     fetch(`http://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
@@ -28,17 +29,36 @@ searchForm.addEventListener('submit', async (e) => {
                                 </div>
                             </div>
                         </div>
-                    `
+                        `
+                    })
+                document.getElementById('results-section').innerHTML = resultsHtml
             })
-            document.getElementById('results-section').innerHTML = resultsHtml
-    })
-    searchForm.reset()
+        e.target.reset()
+    }
+})
+
+document.addEventListener('click', (e) => {
+    if (e.target.dataset.movie) {
+        const movieID = e.target.dataset.movie
+        console.log(movieID)
+        let watchlist = []
+        if (!watchlist.includes(movieID)) {
+            watchlist.unshift(document.querySelector(`[data-movie="${movieID}"]`).outerHTML)
+            localStorage.setItem('watchlist', JSON.stringify(watchlist))
+            alert('Movie added to watchlist!')
+            console.log(localStorage)
+        } else {
+            alert('Movie is already in your watchlist.')
+            console.log(localStorage)
+        }
+    }
 })
 
 async function getMovieDetails(movie) {
     const response = await fetch(`http://www.omdbapi.com/?apikey=44d7feb2&i=${movie.imdbID}`)
     const data = await response.json()
     return {
+        imdbID: data.imdbID,
         Poster: data.Poster,
         Title: data.Title,
         Rating: data.Ratings[0].Value,
