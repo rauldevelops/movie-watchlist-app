@@ -54,24 +54,26 @@ header {
 }
 
 .movie-card {
+    align-items: center;
     gap: 1.25em;
     border-bottom: 1px solid #2C2C2C;
     padding: 2.5em 0;
 }
 
-.movie-card:nth-of-type(10) {
+.movie-card:last-of-type {
     border: none;
 }
 
 
 .movie-poster {
-    width: 150px;
-    object-fit: cover;
+    max-width: 150px;
+    max-height: 222px;
 }
 
 .movie-info {
     flex-direction: column;
     justify-content: center;
+    gap: 1em;
 }
 
 .title-rating {
@@ -81,9 +83,22 @@ header {
 
 .runtime-genre-watchlist-btn {
     align-items: center;
+    justify-content: space-between;
+    font-size: .875rem;
     gap: 1.25em;
 }
 
+.movie-info h3 {
+    font-size: 1.125rem;
+}
+.movie-info p {
+    font-size: .875rem;
+    text-align: justify;
+}
+
+.title-rating p {
+    text-wrap: nowrap;
+}
 /* Navigation */
 
 nav {
@@ -136,7 +151,7 @@ i {
 
 /* Typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     padding: 0;
 }
@@ -178,7 +193,7 @@ a {
     background: none;
     border: none;
     color: #fff;
-    padding: .5em 2.5em;
+    padding-left: 2.5em;
     cursor: pointer;
 }
 
