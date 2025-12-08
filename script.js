@@ -1,5 +1,3 @@
-const searchForm = document.getElementById('search-form')
-
 document.addEventListener('submit', async (e) => {
     if (e.target.id === 'search-form') {
     e.preventDefault()
@@ -37,23 +35,6 @@ document.addEventListener('submit', async (e) => {
     }
 })
 
-document.addEventListener('click', (e) => {
-    if (e.target.dataset.movie) {
-        const movieID = e.target.dataset.movie
-        console.log(movieID)
-        let watchlist = []
-        if (!watchlist.includes(movieID)) {
-            watchlist.unshift(document.querySelector(`[data-movie="${movieID}"]`).outerHTML)
-            localStorage.setItem('watchlist', JSON.stringify(watchlist))
-            alert('Movie added to watchlist!')
-            console.log(localStorage)
-        } else {
-            alert('Movie is already in your watchlist.')
-            console.log(localStorage)
-        }
-    }
-})
-
 async function getMovieDetails(movie) {
     const response = await fetch(`http://www.omdbapi.com/?apikey=44d7feb2&i=${movie.imdbID}`)
     const data = await response.json()
@@ -67,3 +48,28 @@ async function getMovieDetails(movie) {
         Plot: data.Plot
     }
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.dataset.movie) {
+        const movieID = e.target.dataset.movie
+        let watchlist = JSON.parse(localStorage.getItem('watchlist')) || []
+        if (!watchlist.includes(movieID)) {
+            watchlist.unshift(movieID)
+            localStorage.setItem('watchlist', JSON.stringify(watchlist))
+            alert('Movie added to watchlist!')
+        } else {
+            alert('Movie is already in your watchlist.')
+        }
+    }
+})
+
+window.addEventListener('load', (e) => {
+    if (e.target.id === 'watchlist-body') {
+        let watchlistHtml = ``
+        const watchlist = JSON.parse(localStorage.getItem('watchlist')) || []
+        watchlist.forEach(movie => {
+            watchlistHtml += movie
+        })
+        document.getElementById('watchlist-section').innerHTML = watchlistHtml
+    }
+})
