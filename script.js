@@ -1,6 +1,8 @@
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || []
 let movieCardsHtml = ``
 
+const resultsSection = document.getElementById('results-section')
+
 document.addEventListener('submit', async (e) => {
     if (e.target.id === 'search-form') {
     e.preventDefault()
@@ -9,10 +11,23 @@ document.addEventListener('submit', async (e) => {
     fetch(`http://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
         .then(response => response.json())
         .then( async data => {
+            if (data.Response === true) {
             const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
+            console.log(movieDetails)
             movieDetails.forEach(movie => { renderMovieCard(movie) })
-                document.getElementById('results-section').innerHTML = movieCardsHtml
+            resultsSection.innerHTML = movieCardsHtml
+            } else {
+                resultsSection.innerHTML = `
+                <div class="search-placeholder-container flex">
+                    <p class="search-placeholder-text">Unable to find what you’re looking for.
+                    <br> Please try another search.</p>
+                </div>
+            `
+            }
             })
+        .catch(error => {
+            alert('An error occurred while fetching movie data. Please try again later.')
+        })
         e.target.reset()
     }
 })
