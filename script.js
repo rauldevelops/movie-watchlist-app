@@ -8,7 +8,7 @@ document.addEventListener('submit', async (e) => {
     e.preventDefault()
     const searchFormData = new FormData(e.target)
     const searchFormDataObj = Object.fromEntries(searchFormData.entries())
-    fetch(`http://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
+    fetch(`https://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
         .then(response => response.json())
         .then( async data => {
             if (data.Response === 'True') {
