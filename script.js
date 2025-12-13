@@ -11,7 +11,7 @@ document.addEventListener('submit', async (e) => {
     fetch(`http://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
         .then(response => response.json())
         .then( async data => {
-            if (data.Response === true) {
+            if (data.Response === 'True') {
             const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
             console.log(movieDetails)
             movieDetails.forEach(movie => { renderMovieCard(movie) })
