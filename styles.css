@@ -12,12 +12,12 @@ body {
 }
 /* Utility Classes */
 
-.container {
+/* .container {
     width: 85%;
     max-width: 900px;
     margin: 0 auto;
     padding: 0 15px;
-}
+} */
 
 .flex {
     display: flex;
