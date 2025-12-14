@@ -13,8 +13,8 @@ body {
 /* Utility Classes */
 
 .container {
-    width: 85%;
-    max-width: 900px;
+    width: 90%;
+    max-width: 700px;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -82,10 +82,11 @@ header {
 }
 
 .runtime-genre-watchlist-btn {
-    align-items: center;
-    justify-content: space-between;
-    font-size: .875rem;
-    gap: 1.25em;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    font-size: 1rem;
+    gap: 1em;
 }
 
 .movie-info h3 {
