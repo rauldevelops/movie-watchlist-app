@@ -12,12 +12,12 @@ body {
 }
 /* Utility Classes */
 
-/* .container {
+.container {
     width: 85%;
     max-width: 900px;
     margin: 0 auto;
     padding: 0 15px;
-} */
+}
 
 .flex {
     display: flex;
@@ -66,8 +66,8 @@ header {
 
 
 .movie-poster {
-    max-width: 150px;
-    max-height: 222px;
+    max-width: 120px;
+    max-height: 178px;
 }
 
 .movie-info {
@@ -92,7 +92,7 @@ header {
     font-size: 1.125rem;
 }
 .movie-info p {
-    font-size: .875rem;
+    font-size: .80rem;
     text-align: justify;
 }
 
