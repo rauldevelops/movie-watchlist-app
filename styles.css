@@ -13,7 +13,7 @@ body {
 /* Utility Classes */
 
 .container {
-    width: 85%;
+    width: 80%;
     max-width: 700px;
     margin: 0 auto;
     padding: 0;
@@ -73,11 +73,12 @@ header {
 .movie-info {
     flex-direction: column;
     justify-content: center;
-    gap: 1em;
+    gap: .5em;
 }
 
 .title-rating {
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     gap: .5em;
 }
 
@@ -193,13 +194,17 @@ a {
     position: relative;
     background: none;
     border: none;
+    margin: 0;
+    padding: 0;
     color: #fff;
-    padding-left: 2.5em;
+    padding-left: 2.25em;
     cursor: pointer;
 }
 
 .icon {
     position: absolute;
+    margin: 0;
+    padding: 0;
     font-size: 1rem;
     top: 50%;
     transform: translateY(-50%);
