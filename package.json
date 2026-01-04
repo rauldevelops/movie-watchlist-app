@@ -1,0 +1,27 @@
+{
+  "name": "movie-watchlist-app",
+  "version": "1.0.0",
+  "description": "an ap for searching for and creating lists of movies you want to watch",
+  "homepage": "https://github.com/rauldevelops/movie-watchlist-app#readme",
+  "bugs": {
+    "url": "https://github.com/rauldevelops/movie-watchlist-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rauldevelops/movie-watchlist-app.git"
+  },
+  "license": "ISC",
+  "author": "Raul Crespo",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
