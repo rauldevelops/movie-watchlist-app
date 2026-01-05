@@ -98,16 +98,15 @@ document.addEventListener('click', (e) => {
     }
 })
 
-document.addEventListener('DOMContentLoaded', (e) => {
+document.addEventListener('DOMContentLoaded', async (e) => {
     if (window.location.pathname.endsWith('watchlist.html')) {
         if (watchlist.length === 0) {
             renderPlaceholderHtml()
         } else {
-            watchlist.forEach( async (movieID) => {
-                const movie = await getMovieDetails({ imdbID: movieID })
-                renderMovieCard(movie)
-                document.getElementById('watchlist-section').innerHTML = movieCardsHtml
-            })
+            movieCardsHtml = ''
+            const movieDetails = await Promise.all(watchlist.map(movieID => getMovieDetails({ imdbID: movieID })))
+            movieDetails.forEach(movie => { renderMovieCard(movie) })
+        document.getElementById('watchlist-section').innerHTML = movieCardsHtml
         }
     }
 })
