@@ -12,10 +12,11 @@ document.addEventListener('submit', async (e) => {
         .then(response => response.json())
         .then( async data => {
             if (data.Response === 'True') {
-            const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
-            console.log(movieDetails)
-            movieDetails.forEach(movie => { renderMovieCard(movie) })
-            resultsSection.innerHTML = movieCardsHtml
+                movieCardsHtml = ''
+                const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
+                console.log(movieDetails)
+                movieDetails.forEach(movie => { renderMovieCard(movie) })
+                resultsSection.innerHTML = movieCardsHtml
             } else {
                 resultsSection.innerHTML = `
                 <div class="search-placeholder-container flex">
