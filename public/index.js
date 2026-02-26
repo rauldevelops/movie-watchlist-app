@@ -1,5 +1,8 @@
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || []
 let movieCardsHtml = ``
+let currentQuery = ''
+let currentPage = 1
+let totalResults = 0
 
 const resultsSection = document.getElementById('results-section')
 
@@ -8,15 +11,20 @@ document.addEventListener('submit', async (e) => {
     e.preventDefault()
     const searchFormData = new FormData(e.target)
     const searchFormDataObj = Object.fromEntries(searchFormData.entries())
-    fetch(`https://www.omdbapi.com/?apikey=44d7feb2&s=${searchFormDataObj.title}`)
+    currentQuery = searchFormDataObj.title
+    currentPage = 1
+    fetch(`https://www.omdbapi.com/?apikey=44d7feb2&s=${currentQuery}&page=1`)
         .then(response => response.json())
         .then( async data => {
             if (data.Response === 'True') {
                 movieCardsHtml = ''
+                totalResults = parseInt(data.totalResults)
                 const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
-                console.log(movieDetails)
                 movieDetails.forEach(movie => { renderMovieCard(movie) })
                 resultsSection.innerHTML = movieCardsHtml
+                if (totalResults > 10) {
+                    renderLoadMoreButton()
+                }
             } else {
                 resultsSection.innerHTML = `
                 <div class="search-placeholder-container flex">
@@ -77,6 +85,10 @@ async function getMovieDetails(movie) {
 }
 
 document.addEventListener('click', (e) => {
+    if (e.target.id === 'load-more-btn') {
+        loadMoreResults()
+        return
+    }
     if (e.target.dataset.movie) {
         const movieID = e.target.dataset.movie
         if (e.target.id === 'remove-btn') {
@@ -111,6 +123,36 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         }
     }
 })
+
+function renderLoadMoreButton() {
+    resultsSection.insertAdjacentHTML('beforeend', `
+        <div class="load-more-container flex">
+            <button id="load-more-btn">Load 10 More Results</button>
+        </div>
+    `)
+}
+
+async function loadMoreResults() {
+    const loadMoreBtn = document.getElementById('load-more-btn')
+    loadMoreBtn.textContent = 'Loading...'
+    loadMoreBtn.disabled = true
+    currentPage++
+
+    const response = await fetch(`https://www.omdbapi.com/?apikey=44d7feb2&s=${currentQuery}&page=${currentPage}`)
+    const data = await response.json()
+
+    loadMoreBtn.closest('.load-more-container').remove()
+
+    if (data.Response === 'True') {
+        movieCardsHtml = ''
+        const movieDetails = await Promise.all(data.Search.map(getMovieDetails))
+        movieDetails.forEach(movie => { renderMovieCard(movie) })
+        resultsSection.insertAdjacentHTML('beforeend', movieCardsHtml)
+        if (currentPage * 10 < totalResults) {
+            renderLoadMoreButton()
+        }
+    }
+}
 
 function renderPlaceholderHtml() {
     document.getElementById('watchlist-section').innerHTML = `

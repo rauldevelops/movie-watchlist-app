@@ -210,6 +210,29 @@ a {
     transform: translateY(-50%);
 }
 
+/* Load More Button */
+
+.load-more-container {
+    justify-content: center;
+    padding: 2em 0;
+}
+
+#load-more-btn {
+    background: #2E2E2F;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-family: inherit;
+    font-size: .875rem;
+    padding: .75em 2em;
+    cursor: pointer;
+}
+
+#load-more-btn:disabled {
+    color: #A5A5A5;
+    cursor: default;
+}
+
 /* Media Queries */
 
 @media (min-width: 768px) {
